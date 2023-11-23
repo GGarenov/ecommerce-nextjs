@@ -4,17 +4,17 @@
 
 @font-face {
   font-family: "Graphik Medium";
-  src: url("/public/fonts/GraphikMedium.otf");
+  src: url("../public/fonts/GraphikMedium.otf");
 }
 
 @font-face {
   font-family: "Graphik Light";
-  src: url("/public/fonts/GraphikLight.otf");
+  src: url("../public/fonts/GraphikLight.otf");
 }
 
 @font-face {
   font-family: "Graphik Medium";
-  src: url("/public/fonts/GraphikBold.otf");
+  src: url("../public/fonts/GraphikBold.otf");
 }
 
 html,
