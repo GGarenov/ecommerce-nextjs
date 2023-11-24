@@ -1,7 +1,7 @@
 import clsx from "clsx";
 
-export const Button = ({ children, onClick, variant = "primary" }) => {
-  const defaultStyle = "h-10 px-5 m-2 rounded-lg";
+export const Button = ({ children, onClick, variant = "primary", className }) => {
+  const defaultStyle = "h-10 px-5 rounded-lg";
 
   const btnStyle = {
     primary: "text-white bg-slate-800 hover:bg-slate-900",
@@ -9,7 +9,7 @@ export const Button = ({ children, onClick, variant = "primary" }) => {
   };
 
   return (
-    <button className={clsx(defaultStyle, btnStyle[variant])} onClick={onClick}>
+    <button className={clsx(defaultStyle, btnStyle[variant], className && className)} onClick={onClick}>
       {children}
     </button>
   );
