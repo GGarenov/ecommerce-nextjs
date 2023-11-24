@@ -14,8 +14,9 @@ export const Header = () => {
                     fixed top-0 left-0 right-0 z-10"
         >
           <div className="navbar__menu-left flex h-100 items-center hidden space-x-8 lg:flex">
-            <ul>
+            <ul className="flex items-center">
               <NavLink url="/women" label="Women" />
+              <NavLink url="/men" label="Men" />
             </ul>
           </div>
           <div className="flex items-center">LOGO</div>
