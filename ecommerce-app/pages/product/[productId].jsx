@@ -2,6 +2,8 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { PRODUCTS } from "@/data/products";
 import Image from "next/image";
+import { Button } from "@/components/elements/Button";
+import NumberCounter from "@/components/product/NumberCounter";
 
 const imageLoader = ({ src }) => {
   return `/images/products/${src}`;
@@ -13,13 +15,13 @@ const ProductPage = () => {
   const [product, setProduct] = useState({});
   const [notFound, setNotFound] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     if (productId) {
       let index = PRODUCTS.findIndex((product) => product.id == productId);
       if (index > -1) {
-        setProduct(PRODUCTS(index));
+        setProduct(PRODUCTS[index]);
       } else {
         setNotFound(true);
       }
@@ -55,6 +57,10 @@ const ProductPage = () => {
             <div className="product-info">
               <h1>{product.title}</h1>
               <p className="font-graphikLight">{product.description}</p>
+            </div>
+            <div className="product-controls flex flex-row items-end">
+              <NumberCounter quantity={quantity} updateQuantity={updateQuantity} />
+              <Button variant="dark">Add to Cart</Button>
             </div>
           </div>
         </>
