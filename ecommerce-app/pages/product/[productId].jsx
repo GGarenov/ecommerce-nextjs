@@ -29,6 +29,10 @@ const ProductPage = () => {
     }
   }, [productId]);
 
+  const updateQuantity = (newQuantity) => {
+    setQuantity(newQuantity);
+  };
+
   if (notFound) {
     return <div>Product not found</div>;
   }
