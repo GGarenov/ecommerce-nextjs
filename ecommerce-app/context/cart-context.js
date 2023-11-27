@@ -5,7 +5,17 @@ const CartContext = React.createContext();
 function cartReducer(state, action) {
   switch (action.type) {
     case "add": {
-      return { products: [...state.products, action.product] };
+      let index = state.products.findIndex((product) => product.id === action.id);
+      if (index > -1) {
+        let product = state.products[index];
+        let newQuantity = product.qt + action.quantity;
+        let updatedProduct = { ...product, qt: newQuantity };
+        return {
+          products: [...state.procuts.slice(0, index), ...state.products.slice(index + 1), updatedProduct],
+        };
+      } else {
+        return { products: [...state.products, action.product] };
+      }
     }
     case "remove": {
       return { products: state.products.filter((product) => product.id !== action.id) };
