@@ -50,4 +50,4 @@ const ProductContainer = ({ product }) => {
   );
 };
 
-export default ProductPage;
+export default ProductContainer;
