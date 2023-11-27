@@ -4,6 +4,7 @@ import { PRODUCTS } from "@/data/products";
 import Image from "next/image";
 import { Button } from "@/components/elements/Button";
 import NumberCounter from "@/components/product/NumberCounter";
+import { useCart } from "@/context/cart-context";
 
 const imageLoader = ({ src }) => {
   return `/images/products/${src}`;
@@ -16,6 +17,8 @@ const ProductPage = () => {
   const [notFound, setNotFound] = useState(false);
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
+
+  const { dispatch } = useCart();
 
   useEffect(() => {
     if (productId) {
@@ -64,7 +67,9 @@ const ProductPage = () => {
             </div>
             <div className="product-controls flex flex-row items-end">
               <NumberCounter quantity={quantity} updateQuantity={updateQuantity} />
-              <Button variant="dark">Add to Cart</Button>
+              <Button onClick={() => dispatch({ type: "add", product: { ...product, qt: quantity } })}>
+                Add to Cart
+              </Button>
             </div>
           </div>
         </>
