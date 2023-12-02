@@ -1,9 +1,50 @@
 import FiltersIcon from "../../assets/icons/filters.svg";
 import { Accordion } from "../elements/Accordion";
 import { CATEGORIES, COLORS, GENDERS, PRICE_RANGE } from "@/data/filters";
-import { CheckBox } from "../elements/CheckBoix";
+import { CheckBox } from "../elements/CheckBox";
 
 export const FiltersBar = () => {
+  const handleCheckboxChange = (category, value, name) => {
+    let updatedFilters;
+    switch (category) {
+      case "categories":
+        let categories = updateFilter(selectedFilters.categories, name, value);
+        updatedFilters = { ...selectedFilters, categories };
+        updateQueryParams(updatedFilters);
+        break;
+      case "colors":
+        let colors = updateFilter(selectedFilters.colors, name, value);
+        updatedFilters = { ...selectedFilters, colors };
+        updateQueryParams(updatedFilters);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const updateFilter = (list, item, value) => {
+    let updatedList = list || [];
+    if (value == true) {
+      updatedList.push(item);
+    } else {
+      updatedList = updatedList.filter((el) => el != item);
+    }
+    return updatedList;
+  };
+
+  const updateQueryParams = (updatedFilters) => {
+    router.push({
+      pathname: "/search",
+      query: {
+        categories: JSON.stringify(updatedFilters.categories),
+        colors: JSON.stringify(updatedFilters.colors),
+        gender: JSON.stringify(updatedFilters.gender),
+        price: JSON.stringify(updatedFilters.price),
+      },
+      shallow: true,
+    });
+  };
+
   return (
     <div className="m-4 border-r px-3 border-slate-300">
       <div className="flex pb-2 justify-between border-b border-slate-300">
@@ -14,7 +55,30 @@ export const FiltersBar = () => {
         <button className="mx-2">Clear All</button>
       </div>
       <div className="flex pb-2 flex-col justify-between border-b border-slate-300">
-        <Accordion label="Categories">{}</Accordion>
+        <Accordion label="Categories">
+          {CATEGORIES.map((category, index) => {
+            return (
+              <CheckBox
+                key={index}
+                label={category.name}
+                onChange={(e) => handleCheckboxChange("categories", e.target.checked, category.name)}
+              />
+            );
+          })}
+        </Accordion>
+      </div>
+      <div className="flex pb-2 flex-col justify-between border-b border-slate-300">
+        <Accordion label="Colors">
+          {COLORS.map((category, index) => {
+            return (
+              <CheckBox
+                key={index}
+                label={category.name}
+                onChange={(e) => handleCheckboxChange("colors", e.target.checked, category.name)}
+              />
+            );
+          })}
+        </Accordion>
       </div>
     </div>
   );
