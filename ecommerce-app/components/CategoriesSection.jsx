@@ -6,35 +6,27 @@ export const CategoriesSection = () => {
       name: "Blouses",
       imgUrl: "/images/categories/blouses.webp",
     },
-
     {
       name: "Coats",
       imgUrl: "/images/categories/coats.webp",
     },
-
     {
       name: "Dresses",
       imgUrl: "/images/categories/dress.jpeg",
     },
-
     {
       name: "Skirts",
       imgUrl: "/images/categories/skirts.webp",
     },
     {
-      name: "sweaterss",
+      name: "Sweaters",
       imgUrl: "/images/categories/sweaters.webp",
     },
     {
-      name: "sweats",
-      imgUrl: "/images/categories/sweats.webp",
-    },
-    {
-      name: "vests",
+      name: "Vests",
       imgUrl: "/images/categories/vests.jpeg",
     },
   ];
-
   return (
     <div>
       <h2 className="text-center text-xl mt-6 mb-3 p-2">Browse By Category</h2>

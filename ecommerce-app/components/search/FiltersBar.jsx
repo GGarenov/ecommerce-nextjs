@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import FiltersIcon from "../../assets/icons/filters.svg";
 import { Accordion } from "../elements/Accordion";
-import { CATEGORIES, COLORS, GENDERS, PRICE_RANGE } from "@/data/filters";
 import { CheckBox } from "../elements/CheckBox";
+import { CATEGORIES, COLORS, GENDERS, PRICE_RANGE } from "../../data/filters";
 import { useRouter } from "next/router";
+import { Radio } from "../elements/Radio";
+import Slider, { createSliderWithTooltip } from "rc-slider";
+import "rc-slider/assets/index.css";
 
 export const FiltersBar = () => {
   const [selectedFilters, setSelectedFilters] = useState({});
@@ -19,6 +22,7 @@ export const FiltersBar = () => {
       price: JSON.parse(price || "[]"),
     });
   }, [categories, colors, gender, price]);
+
   const handleCheckboxChange = (category, value, name) => {
     let updatedFilters;
     switch (category) {
@@ -60,6 +64,18 @@ export const FiltersBar = () => {
     });
   };
 
+  const handleRadioSelect = (value) => {
+    updateQueryParams({ ...selectedFilters, gender: value });
+  };
+
+  const onSliderChange = (value) => {
+    updateQueryParams({ ...selectedFilters, price: value });
+  };
+
+  const clearFilters = () => {
+    updateQueryParams({});
+  };
+
   return (
     <div className="m-4 border-r px-3 border-slate-300">
       <div className="flex pb-2 justify-between border-b border-slate-300">
@@ -67,7 +83,9 @@ export const FiltersBar = () => {
           <FiltersIcon />
           <span className="px-2">Filters</span>
         </div>
-        <button className="mx-2">Clear All</button>
+        <button className="mx-2" onClick={clearFilters}>
+          Clear All
+        </button>
       </div>
       <div className="flex pb-2 flex-col justify-between border-b border-slate-300">
         <Accordion label="Categories">
@@ -90,6 +108,39 @@ export const FiltersBar = () => {
                 key={index}
                 label={category.name}
                 onChange={(e) => handleCheckboxChange("colors", e.target.checked, category.name)}
+              />
+            );
+          })}
+        </Accordion>
+      </div>
+      <div className="flex pb-2 flex-col justify-between border-b border-slate-300">
+        <Accordion label="Price">
+          <>
+            <Slider
+              range
+              min={PRICE_RANGE[0]}
+              max={PRICE_RANGE[1]}
+              value={selectedFilters.price}
+              onChange={onSliderChange}
+              handleStyle={{
+                borderColor: "grey",
+              }}
+              trackStyle={{
+                background: "black",
+              }}
+            />
+          </>
+        </Accordion>
+      </div>
+      <div className="flex pb-2 flex-col justify-between border-b border-slate-300">
+        <Accordion label="Gender">
+          {GENDERS.map((gender, index) => {
+            return (
+              <Radio
+                key={index}
+                label={gender.name}
+                name="gender"
+                onChange={(e) => handleRadioSelect(e.target.value)}
               />
             );
           })}
