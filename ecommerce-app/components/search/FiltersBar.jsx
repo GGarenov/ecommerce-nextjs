@@ -1,6 +1,7 @@
 import FiltersIcon from "../../assets/icons/filters.svg";
 import { Accordion } from "../elements/Accordion";
 import { CATEGORIES, COLORS, GENDERS, PRICE_RANGE } from "@/data/filters";
+import { CheckBox } from "../elements/CheckBoix";
 
 export const FiltersBar = () => {
   return (
@@ -13,9 +14,7 @@ export const FiltersBar = () => {
         <button className="mx-2">Clear All</button>
       </div>
       <div className="flex pb-2 flex-col justify-between border-b border-slate-300">
-        <Accordion label="Categories">
-          <>categories listed here</>
-        </Accordion>
+        <Accordion label="Categories">{}</Accordion>
       </div>
     </div>
   );
