@@ -1,10 +1,10 @@
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { PRODUCTS } from "@/data/products";
+import { PRODUCTS } from "../../data/products";
+import Spinner from "../../components/elements/Spinner";
 import Image from "next/image";
-import { Button } from "@/components/elements/Button";
-import NumberCounter from "@/components/product/NumberCounter";
-import { useCart } from "@/context/cart-context";
+import NumberCounter from "../../components/product/NumberCounter";
+import { useCart } from "../../context/cart-context";
 
 const imageLoader = ({ src }) => {
   return `/images/products/${src}`;
@@ -41,7 +41,7 @@ const ProductPage = () => {
   }
 
   if (loading) {
-    return <div>loading...</div>;
+    return <Spinner />;
   }
 
   return (
@@ -50,14 +50,7 @@ const ProductPage = () => {
         <>
           <div className="cols-span-2">
             <div className="border rounded border-slate-300 flex items-center justify-center">
-              <Image
-                loader={imageLoader}
-                src={`${product.imgUrl}`}
-                alt="product image"
-                width={150}
-                height={300}
-                objectFit="cover"
-              />
+              <Image loader={imageLoader} src={`${product.imgUrl}`} alt="product image" width={150} height={300} />
             </div>
           </div>
           <div className="cols-span-3 flex flex-col justify-between">
@@ -67,9 +60,12 @@ const ProductPage = () => {
             </div>
             <div className="product-controls flex flex-row items-end">
               <NumberCounter quantity={quantity} updateQuantity={updateQuantity} />
-              <Button onClick={() => dispatch({ type: "add", product: { ...product, qt: quantity } })}>
-                Add to Cart
-              </Button>
+              <button
+                onClick={() => dispatch({ type: "add", product: { ...product, qt: quantity } })}
+                className="bg-black text-white p-3 w-full mx-3"
+              >
+                Add To Cart
+              </button>
             </div>
           </div>
         </>

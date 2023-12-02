@@ -18,7 +18,7 @@ const Cart = () => {
         return <ProductContainer key={index} product={product} />;
       })}
       <div className="flex md:max-w-screen-lg mx-auto justify-end">
-        <Button>Checkout</Button>
+        <Button variant="dark">Checkout</Button>
       </div>
     </div>
   );

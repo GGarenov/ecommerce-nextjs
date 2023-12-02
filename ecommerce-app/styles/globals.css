@@ -27,6 +27,6 @@ body {
   box-sizing: border-box;
 }
 
- h1, p, h2 {
+ h1, h2, p {
   font-family: 'Graphik Medium';
  }
