@@ -1,9 +1,24 @@
+import { useState, useEffect } from "react";
 import FiltersIcon from "../../assets/icons/filters.svg";
 import { Accordion } from "../elements/Accordion";
 import { CATEGORIES, COLORS, GENDERS, PRICE_RANGE } from "@/data/filters";
 import { CheckBox } from "../elements/CheckBox";
+import { useRouter } from "next/router";
 
 export const FiltersBar = () => {
+  const [selectedFilters, setSelectedFilters] = useState({});
+
+  const router = useRouter();
+  const { categories, colors, gender, price } = router.query;
+
+  useEffect(() => {
+    setSelectedFilters({
+      categories: JSON.parse(categories || "[]"),
+      colors: JSON.parse(colors || "[]"),
+      gender: JSON.parse(gender || "[]"),
+      price: JSON.parse(price || "[]"),
+    });
+  }, [categories, colors, gender, price]);
   const handleCheckboxChange = (category, value, name) => {
     let updatedFilters;
     switch (category) {
